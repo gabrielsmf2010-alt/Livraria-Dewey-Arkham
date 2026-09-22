@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho | Livraria Dewey Arkham</title>
+    
+    <link rel="icon" href="icone-provisorio.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="barra-topo">
+        <a href="carrinho.html" class="btn-topo">
+            <span>Carrinho</span>
+            <span class="contador-carrinho">0</span>
+        </a>
+        <div class="marca-topo"><a href="index.html" style="color: inherit; text-decoration: none;">Dewey Arkham</a></div>
+        <a href="login.html" id="link-login-topo" class="btn-topo">Login - Cadastro</a>
+    </nav>
+    
+    <main class="container-carrinho">
+        <section class="secao-titulo" style="margin: 2rem 0 1.5rem 0;">
+            <h1>Inventário Selecionado</h1>
+            <p class="subtitulo-secao">Revise os itens escolhidos para a sua investigação.</p>
+        </section>
+
+        <div id="lista-carrinho"></div>
+
+        <div class="resumo-carrinho">
+            <span style="font-weight: 600;">Total da Compra:</span>
+            <strong id="total-carrinho" class="info-preco" style="font-size: 1.3rem;">R$ 0,00</strong>
+        </div>
+    </main>
+    
+    <footer class="rodape-principal" style="margin-top: 5rem;">
+        <div class="rodape-direitos">
+            <p>&copy; 2026 Arkham. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

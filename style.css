@@ -1,0 +1,555 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* Paleta de Cores Rigorosa e Sofisticada */
+:root {
+    --fundo-preto: #050608;
+    --fundo-preto-secundario: #0e1117;
+    --fundo-cartao: #121620;
+    --fundo-rodape: #080a0f;
+    --verde-escuro: #133022;
+    --verde-claro: #a3e635;
+    --verde-claro-hover: #bef264;
+    --roxo: #7c3aed;
+    --roxo-profundo: #5b21b6;
+    --roxo-brilho: rgba(124, 58, 237, 0.35);
+    --texto-claro: #f3f4f6;
+    --texto-secundario: #9ca3af;
+    --vermelho-botao: #dc2626;
+}
+
+/* Configurações Globais */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--fundo-preto);
+    color: var(--texto-claro);
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.2px;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 10% 90%, rgba(19, 48, 34, 0.15) 0%, transparent 40%);
+    background-attachment: fixed;
+}
+
+/* Barra de Navegação Fixa */
+.barra-topo {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(14, 17, 23, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 6%;
+    border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.marca-topo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--verde-claro);
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(163, 230, 53, 0.3);
+}
+
+.btn-topo {
+    color: var(--texto-claro);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: 1px solid rgba(124, 58, 237, 0.4);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background-color: rgba(18, 22, 32, 0.9);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-topo:hover {
+    border-color: var(--verde-claro);
+    color: var(--verde-claro);
+    background-color: rgba(124, 58, 237, 0.15);
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.3);
+}
+
+.contador-carrinho {
+    background-color: var(--roxo);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+/* Banner Superior */
+.cabecalho-banner {
+    width: 85%;
+    max-width: 900px;
+    margin: 50px auto 20px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.moldura-banner {
+    width: 100%;
+    padding: 6px;
+    background: linear-gradient(135deg, var(--roxo), var(--verde-escuro), var(--fundo-preto-secundario));
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 25px rgba(124, 58, 237, 0.2);
+}
+
+.cabecalho-banner img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    filter: brightness(0.92) contrast(1.05);
+}
+
+/* Títulos */
+.secao-titulo {
+    text-align: center;
+    margin: 4rem 0 2.5rem 0;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    color: var(--verde-claro);
+    font-size: 2.6rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 0 2px 15px rgba(19, 48, 34, 0.8), 0 0 30px rgba(163, 230, 53, 0.15);
+}
+
+.subtitulo-secao {
+    color: var(--texto-secundario);
+    font-size: 1rem;
+    font-style: italic;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* Grelha de Livros */
+.grelha-livros {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2.5rem;
+    padding: 0 2rem 5rem 2rem;
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+.cartao-livro {
+    position: relative;
+    background-color: var(--fundo-cartao);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 10px;
+    padding: 1.8rem 1.5rem 1.5rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cartao-livro:hover {
+    transform: translateY(-8px);
+    border-color: var(--roxo);
+    box-shadow: 0 16px 35px var(--roxo-brilho), 0 0 20px rgba(163, 230, 53, 0.08);
+}
+
+.cartao-livro.destaque::before,
+.cartao-livro.promocao::before {
+    content: attr(data-badge);
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    z-index: 2;
+}
+
+.cartao-livro.destaque::before {
+    background: linear-gradient(135deg, var(--roxo), var(--roxo-profundo));
+}
+
+.cartao-livro.promocao::before {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.capa-livro {
+    width: 100%;
+    max-width: 185px;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin: 0 auto 1.4rem auto;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease;
+}
+
+.cartao-livro:hover .capa-livro {
+    transform: scale(1.03);
+}
+
+.titulo-livro {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--texto-claro);
+    margin: 0 0 0.5rem 0;
+    min-height: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-secundaria {
+    margin-bottom: 0.4rem;
+}
+
+.info-secundaria .autor {
+    font-size: 0.85rem;
+    color: rgba(209, 213, 219, 0.55);
+    font-style: italic;
+    margin: 0;
+}
+
+.bloco-preco {
+    margin: 0.5rem 0 0.2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.preco-antigo {
+    font-size: 0.85rem;
+    color: var(--texto-secundario);
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.info-preco {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--verde-claro);
+    margin: 0;
+    text-shadow: 0 0 10px rgba(163, 230, 53, 0.15);
+}
+
+.parcelas {
+    font-size: 0.78rem;
+    color: rgba(209, 213, 219, 0.45);
+    margin: 0 0 1rem 0;
+}
+
+.info-stock {
+    font-size: 0.72rem;
+    color: var(--fundo-preto);
+    background-color: var(--verde-claro);
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-top: auto;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(163, 230, 53, 0.2);
+}
+
+.btn-comprar {
+    width: 100%;
+    background-color: var(--roxo);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px var(--roxo-brilho);
+}
+
+.btn-comprar:hover {
+    background-color: #6d28d9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.5);
+}
+
+/* --- NOVAS REGRAS PARA PÁGINAS ADICIONAIS --- */
+
+/* Estilos de Formulário de Login / Cadastro */
+.container-login {
+    max-width: 450px;
+    margin: 5rem auto;
+    padding: 2.5rem;
+    background-color: var(--fundo-cartao);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 1.2rem;
+    text-align: left;
+}
+
+.form-grupo label {
+    font-size: 0.85rem;
+    color: var(--verde-claro);
+    font-weight: 600;
+}
+
+.form-grupo input {
+    background-color: var(--fundo-preto-secundario);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    color: var(--texto-claro);
+    padding: 12px;
+    border-radius: 6px;
+    outline: none;
+}
+
+.form-grupo input:focus {
+    border-color: var(--verde-claro);
+    box-shadow: 0 0 8px rgba(163, 230, 53, 0.2);
+}
+
+/* Estilos do Carrinho e Inventário */
+.container-carrinho {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    min-height: 50vh;
+}
+
+.item-carrinho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--fundo-cartao);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 1rem;
+}
+
+.resumo-carrinho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--fundo-preto-secundario);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    margin-top: 2rem;
+}
+
+/* Estilos para o Gerenciador de Estoque (Admin) */
+.tabela-estoque {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background-color: var(--fundo-cartao);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.tabela-estoque th, .tabela-estoque td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+}
+
+.tabela-estoque th {
+    background-color: var(--fundo-preto-secundario);
+    color: var(--verde-claro);
+    font-family: 'Cinzel', serif;
+}
+
+.input-estoque {
+    width: 70px;
+    background-color: var(--fundo-preto);
+    border: 1px solid var(--roxo);
+    color: white;
+    padding: 6px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Rodapé */
+.rodape-principal {
+    background-color: var(--fundo-rodape);
+    color: var(--texto-claro);
+    border-top: 3px solid var(--verde-escuro);
+    position: relative;
+}
+
+.rodape-conteudo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    gap: 3.5rem;
+}
+
+.coluna-rodape {
+    flex: 1;
+    min-width: 260px;
+}
+
+.coluna-rodape h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--verde-claro);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.institucional ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.institucional ul li {
+    margin-bottom: 0.8rem;
+}
+
+.institucional ul li a {
+    color: var(--texto-secundario);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.institucional ul li a:hover {
+    color: var(--verde-claro);
+    padding-left: 4px;
+}
+
+.texto-newsletter {
+    font-size: 0.85rem;
+    color: var(--texto-secundario);
+    margin-bottom: 1rem;
+}
+
+.form-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-cadastro input {
+    background-color: var(--fundo-preto-secundario);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    color: var(--texto-claro);
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-cadastro input:focus {
+    border-color: var(--verde-claro);
+    box-shadow: 0 0 8px rgba(163, 230, 53, 0.2);
+}
+
+.grupo-input {
+    display: flex;
+}
+
+.grupo-input input {
+    border-radius: 6px 0 0 6px;
+}
+
+.grupo-input button {
+    background-color: var(--vermelho-botao);
+    color: white;
+    border: none;
+    padding: 0 18px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.grupo-input button:hover {
+    background-color: #b91c1c;
+}
+
+.icones-redes {
+    display: flex;
+    gap: 14px;
+}
+
+.icones-redes span {
+    cursor: pointer;
+    background-color: var(--fundo-preto-secundario);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    color: var(--texto-secundario);
+    border-radius: 8px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.icones-redes span:hover {
+    background-color: var(--roxo);
+    color: white;
+    border-color: var(--roxo);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px var(--roxo-brilho);
+}
+
+.rodape-direitos {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--fundo-preto);
+    color: rgba(156, 163, 175, 0.5);
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    letter-spacing: 0.5px;
+}

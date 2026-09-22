@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Livraria Dewey Arkham</title>
+    
+    <link rel="icon" href="icone-provisorio.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="barra-topo">
+        <a href="carrinho.html" class="btn-topo">
+            <span>Carrinho</span>
+            <span class="contador-carrinho">0</span>
+        </a>
+        <div class="marca-topo"><a href="index.html" style="color: inherit; text-decoration: none;">Dewey Arkham</a></div>
+        <a href="index.html" class="btn-topo">Voltar à Loja</a>
+    </nav>
+
+    <main>
+        <div class="container-login">
+            <h2 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin-top: 0; text-align: center; margin-bottom: 1.5rem;">Identificação</h2>
+            
+            <form id="form-login">
+                <div class="form-grupo">
+                    <label for="email-login">E-mail ou Utilizador</label>
+                    <input type="text" id="email-login" placeholder="Ex: Moises" required>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="senha-login">Palavra-passe</label>
+                    <input type="password" id="senha-login" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-comprar" style="margin-top: 1rem;">Aceder</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="rodape-principal" style="position: absolute; bottom: 0; width: 100%;">
+        <div class="rodape-direitos">
+            <p>&copy; 2026 Arkham. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

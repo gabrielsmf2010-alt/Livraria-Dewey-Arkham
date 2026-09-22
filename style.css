@@ -551,3 +551,55 @@ h1 {
     border-top: 1px solid rgba(255, 255, 255, 0.04);
     letter-spacing: 0.5px;
 }
+
+@media screen and (max-width: 768px) {
+    
+    
+    .barra-topo {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 10px;
+        text-align: center;
+    }
+
+    
+    .cabecalho-banner, .moldura-banner img {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+    
+    .grelha-livros {
+        grid-template-columns: 1fr;
+        padding: 0 15px;
+    }
+
+    
+    .cartao-livro {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    
+    .rodape-conteudo {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .coluna-rodape.cadastro .grupo-input {
+        flex-direction: column;
+    }
+
+    
+    .container-carrinho {
+        padding: 0 10px;
+    }
+
+   
+    #lista-admin-produtos > div > div:nth-child(2) {
+        flex-direction: column;
+    }
+}

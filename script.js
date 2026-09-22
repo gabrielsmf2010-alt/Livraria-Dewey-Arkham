@@ -14,6 +14,7 @@ let produtosPadrao = [
     { id: 13, titulo: "O Caso de C. Dexter Ward", autor: "H.P. Lovecraft", preco: 99.90, estoque: 73, capa: "capas dos livros/capa-o-caso-de-c.-dexter-ward.webp" },
     { id: 14, titulo: "O Espreitador", autor: "H.P. Lovecraft", preco: 119.90, estoque: 34, capa: "capas dos livros/capa-o-espreitador.webp" },
     { id: 15, titulo: "Herbert West: Reanimator", autor: "H.P. Lovecraft", preco: 99.90, estoque: 67, capa: "capas dos livros/capa-reanimator.webp" }
+     { id: 16, titulo: "O Chamado de Cthulhinho", autor: "H.P. Lovecraft", preco: 99.90, estoque: 67, capa: "" }
 ];
 
 function obterEstoque() {

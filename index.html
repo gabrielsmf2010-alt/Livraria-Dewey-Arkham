@@ -11,206 +11,91 @@
 <body>
 
     <nav class="barra-topo">
-        <a href="carrinho.html" class="btn-topo">
+        <a href="#" onclick="mudarAba('carrinho')" class="btn-topo">
             <span>Carrinho</span>
             <span class="contador-carrinho">0</span>
         </a>
-        <div class="marca-topo"><a href="index.html" style="color: inherit; text-decoration: none;">Dewey Arkham</a></div>
-        <a href="login.html" id="link-login-topo" class="btn-topo">Login - Cadastro</a>
+        <div class="marca-topo"><a href="#" onclick="mudarAba('loja')" style="color: inherit; text-decoration: none;">Dewey Arkham</a></div>
+        <a href="#" id="link-login-topo" onclick="gerenciarCliqueLogin()" class="btn-topo">Login - Cadastro</a>
     </nav>
 
-    <!-- Banner -->
-    <header class="cabecalho-banner">
+    <header class="cabecalho-banner" id="bloco-banner">
         <div class="moldura-banner">
             <img src="banner-da-livraria-provisorio.jpg" alt="Banner da Livraria">
         </div>
     </header>
 
-    <!-- Livros -->
     <main>
-        <section class="secao-titulo">
-            <h1>Lendas disponíveis</h1>
-            <p class="subtitulo-secao">Manuscritos proibidos e literatura investigativa.</p>
+
+        <!-- LOJA -->
+        <section id="aba-loja" class="aba-conteudo">
+            <div class="secao-titulo">
+                <h1>As Lendas de Arkham</h1>
+                <p class="subtitulo-secao">Obras raras, ocultismo e investigação literária.</p>
+            </div>
+            
+            <div class="grelha-livros" id="vitrine-produtos"></div>
         </section>
-        
-        <div class="grelha-livros">
-            <!-- Livro 1 -->
-            <div class="cartao-livro promocao" data-badge="-20% OFF">
-                <img src="capas dos livros/Capa-iniciacao.webp" alt="Iniciação" class="capa-livro">
-                <h3 class="titulo-livro">Iniciação</h3>
-                <div class="info-secundaria"><p class="autor">(Rafael "Cellbit" Lange)</p></div>
-                <div class="bloco-preco">
-                    <span class="preco-antigo">R$ 129,90</span>
-                    <p class="info-preco">R$ 103,90</p>
+
+        <!-- CARRINHO -->
+        <section id="aba-carrinho" class="aba-conteudo" style="display: none;">
+            <div class="container-carrinho" style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
+                <section class="secao-titulo" style="margin: 2rem 0 1.5rem 0;">
+                    <h1>Inventário Selecionado</h1>
+                    <p class="subtitulo-secao">Revise os itens escolhidos para a sua investigação.</p>
+                </section>
+
+                <div id="lista-carrinho"></div>
+
+                <div class="resumo-carrinho" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; background: var(--fundo-cartao); padding: 15px; border-radius: 6px;">
+                    <span style="font-weight: 600;">Total da Compra:</span>
+                    <strong id="total-carrinho" class="info-preco" style="font-size: 1.3rem;">R$ 0,00</strong>
                 </div>
-                <p class="parcelas">ou em até 3x de R$ 34,63</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">15</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
 
-            <!-- Livro 2 -->
-            <div class="cartao-livro destaque" data-badge="Bestseller">
-                <img src="capas dos livros/capa-o-segredo-na-floresta-part1.webp" alt="Segredo na Floresta Parte 1" class="capa-livro">
-                <h3 class="titulo-livro">Segredo na Floresta - Parte 1</h3>
-                <div class="info-secundaria"><p class="autor">(Rafael "Cellbit" Lange)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 149,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 49,96</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">50</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
+                <div id="container-btn-finalizar" style="margin-top: 1.5rem;"></div>
             </div>
+        </section>
 
-            <!-- Livro 3 -->
-            <div class="cartao-livro">
-                <img src="capas dos livros/capa-o-segredo-na-floresta-part2.webp" alt="Segredo na Floresta Parte 2" class="capa-livro">
-                <h3 class="titulo-livro">Segredo na Floresta - Parte 2</h3>
-                <div class="info-secundaria"><p class="autor">(Rafael "Cellbit" Lange)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 149,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 49,96</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">53</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
+        <!-- LOGIN -->
+        <section id="aba-login" class="aba-conteudo" style="display: none;">
+            <div class="container-login" style="max-width: 400px; margin: 4rem auto; background: var(--fundo-cartao); padding: 2rem; border-radius: 8px; border: 1px solid rgba(124,58,237,0.2);">
+                <h2 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin-top: 0; text-align: center; margin-bottom: 1.5rem;">Identificação</h2>
+                
+                <form id="form-login">
+                    <div class="form-grupo" style="margin-bottom: 1rem;">
+                        <label for="email-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">E-mail ou Utilizador</label>
+                        <input type="text" id="email-login" placeholder="Digite seu e-mail ou nome de usuário" required style="width: 100%; padding: 10px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
+                    </div>
+
+                    <div class="form-grupo" style="margin-bottom: 1.5rem;">
+                        <label for="senha-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Palavra-passe</label>
+                        <input type="password" id="senha-login" placeholder="••••••••" required style="width: 100%; padding: 10px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
+                    </div>
+
+                    <button type="submit" class="btn-comprar" style="width: 100%; margin-top: 0; padding: 12px; cursor: pointer;">Aceder</button>
+                </form>
             </div>
+        </section>
 
-            <!-- Livro 4 -->
-            <div class="cartao-livro">
-                <img src="capas dos livros/capa-desconjuracao-part1.webp" alt="Desconjuração Parte 1" class="capa-livro">
-                <h3 class="titulo-livro">Desconjuração - Parte 1</h3>
-                <div class="info-secundaria"><p class="autor">(Rafael "Cellbit" Lange)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 149,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 49,96</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">42</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
-
-            <!-- Livro 5 -->
-            <div class="cartao-livro">
-                <img src="capas dos livros/capa-desconjuracao-part2.webp" alt="Desconjuração Parte 2" class="capa-livro">
-                <h3 class="titulo-livro">Desconjuração - Parte 2</h3>
-                <div class="info-secundaria"><p class="autor">(Rafael "Cellbit" Lange)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 149,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 49,96</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">67</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
-
-            <!-- Livro 6 -->
-            <div class="cartao-livro promocao" data-badge="Oferta">
-                <img src="capas dos livros/capa-livro-de-regras.webp" alt="Livro de Regras" class="capa-livro">
-                <h3 class="titulo-livro">Livro de Regras</h3>
-                <div class="info-secundaria"><p class="autor">(Rafael "Cellbit" Lange)</p></div>
-                <div class="bloco-preco">
-                    <span class="preco-antigo">R$ 69,90</span>
-                    <p class="info-preco">R$ 49,90</p>
+        <!-- PAINEL ADMIN -->
+        <section id="aba-admin" class="aba-conteudo" style="display: none;">
+            <div class="container-carrinho" style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0 1rem 0;">
+                    <div>
+                        <h1 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin: 0;">Painel de Controle do Administrador</h1>
+                        <p class="subtitulo-secao" style="margin: 5px 0 0 0;">Modifique os dados do acervo diretamente abaixo.</p>
+                    </div>
+                    <button onclick="sairAdmin()" class="btn-topo" style="border-color: var(--vermelho-botao); color: var(--vermelho-botao); background: none; cursor: pointer; padding: 8px 12px;">Sair</button>
                 </div>
-                <p class="parcelas">ou em até 2x de R$ 24,95</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">34</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
 
-            <!-- Livro 7 -->
-            <div class="cartao-livro destaque" data-badge="Essencial">
-                <img src="capas dos livros/capa-sobrevivendo-ao-horror.webp" alt="Sobrevivendo ao Horror" class="capa-livro">
-                <h3 class="titulo-livro">Sobrevivendo ao Horror</h3>
-                <div class="info-secundaria"><p class="autor">(Rafael "Cellbit" Lange)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 179,90</p></div>
-                <p class="parcelas">ou em até 4x de R$ 44,97</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">20</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
+                <div id="lista-admin-produtos"></div>
 
-            <!-- Livro 8 -->
-            <div class="cartao-livro">
-                <img src="capas dos livros/capa-vendeta-oculta.webp" alt="Vendeta Oculta" class="capa-livro">
-                <h3 class="titulo-livro">Vendeta Oculta</h3>
-                <div class="info-secundaria"><p class="autor">(Rafael "Cellbit" Lange)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 129,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 43,30</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">26</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
+                <button onclick="salvarAlteracoesAdmin()" class="btn-comprar" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 1.5rem; cursor: pointer;">Salvar Alterações do Acervo</button>
             </div>
+        </section>
 
-            <!-- Livro 9 -->
-            <div class="cartao-livro">
-                <img src="capas dos livros/capa-vendeta-oculta-part2.webp" alt="Vendeta Oculta 2" class="capa-livro">
-                <h3 class="titulo-livro">Vendeta Oculta 2</h3>
-                <div class="info-secundaria"><p class="autor">(Rafael "Cellbit" Lange)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 129,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 43,30</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">50</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
-
-            <!-- Livro 10 -->
-            <div class="cartao-livro">
-                <img src="capas dos livros/capa-a-cor-que-caiu-do-ceu.webp" alt="A Cor Que Caiu do Céu" class="capa-livro">
-                <h3 class="titulo-livro">A Cor Que Caiu do Céu</h3>
-                <div class="info-secundaria"><p class="autor">(H.P. Lovecraft)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 99,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 33,30</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">30</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
-
-            <!-- Livro 11 -->
-            <div class="cartao-livro destaque" data-badge="Raro">
-                <img src="capas dos livros/capa-box-hp-lovecraft.webp" alt="Box H.P. Lovecraft" class="capa-livro">
-                <h3 class="titulo-livro">Box H.P. Lovecraft</h3>
-                <div class="info-secundaria"><p class="autor">(H.P. Lovecraft)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 330,00</p></div>
-                <p class="parcelas">ou em até 6x de R$ 55,00</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">23</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
-
-            <!-- Livro 12 -->
-            <div class="cartao-livro promocao" data-badge="-15% OFF">
-                <img src="capas dos livros/capa-cthulhu.webp" alt="O Chamado de Cthulhu" class="capa-livro">
-                <h3 class="titulo-livro">O Chamado de Cthulhu e Outros Contos</h3>
-                <div class="info-secundaria"><p class="autor">(H.P. Lovecraft)</p></div>
-                <div class="bloco-preco">
-                    <span class="preco-antigo">R$ 99,90</span>
-                    <p class="info-preco">R$ 84,90</p>
-                </div>
-                <p class="parcelas">ou em até 3x de R$ 28,30</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">40</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
-
-            <!-- Livro 13 -->
-            <div class="cartao-livro">
-                <img src="capas dos livros/capa-o-caso-de-c.-dexter-ward.webp" alt="O Caso de C. Dexter Ward" class="capa-livro">
-                <h3 class="titulo-livro">O Caso de C. Dexter Ward</h3>
-                <div class="info-secundaria"><p class="autor">(H.P. Lovecraft)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 99,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 33,30</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">73</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
-
-            <!-- Livro 14 -->
-            <div class="cartao-livro">
-                <img src="capas dos livros/capa-o-espreitador.webp" alt="O Espreitador" class="capa-livro">
-                <h3 class="titulo-livro">O Espreitador</h3>
-                <div class="info-secundaria"><p class="autor">(H.P. Lovecraft)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 119,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 39,96</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">34</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
-
-            <!-- Livro 15 -->
-            <div class="cartao-livro">
-                <img src="capas dos livros/capa-reanimator.webp" alt="Herbert West: Reanimator" class="capa-livro">
-                <h3 class="titulo-livro">Herbert West: Reanimator</h3>
-                <div class="info-secundaria"><p class="autor">(H.P. Lovecraft)</p></div>
-                <div class="bloco-preco"><p class="info-preco">R$ 99,90</p></div>
-                <p class="parcelas">ou em até 3x de R$ 33,30</p>
-                <span class="info-stock">Em estoque: <span class="qtd-estoque">67</span> cópias</span>
-                <button class="btn-comprar">Comprar</button>
-            </div>
-        </div>
     </main>
 
-    <!-- Rodapé -->
     <footer class="rodape-principal">
         <div class="rodape-conteudo">
             <div class="coluna-rodape institucional">
@@ -250,7 +135,7 @@
 
         <div class="rodape-direitos">
             <p>&copy; 2026 Arkham. Todos os direitos reservados. 
-               <a href="login.html" style="color: inherit; text-decoration: none; opacity: 0.15; margin-left: 10px; font-size: 0.7rem;" title="Painel Restrito">⚙️</a>
+               <a href="#" onclick="verificarAcessoAdmin()" style="color: inherit; text-decoration: none; opacity: 0.15; margin-left: 10px; font-size: 0.7rem;" title="Painel Restrito">⚙️</a>
             </p>
         </div>
     </footer>

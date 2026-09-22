@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-/* Paleta de Cores Rigorosa e Sofisticada */
+
 :root {
     --fundo-preto: #050608;
     --fundo-preto-secundario: #0e1117;
@@ -18,7 +18,7 @@
     --vermelho-botao: #dc2626;
 }
 
-/* Configurações Globais */
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -36,7 +36,7 @@ body {
     background-attachment: fixed;
 }
 
-/* Barra de Navegação Fixa */
+
 .barra-topo {
     position: sticky;
     top: 0;
@@ -94,7 +94,7 @@ body {
     transition: transform 0.2s ease;
 }
 
-/* Banner Superior */
+
 .cabecalho-banner {
     width: 85%;
     max-width: 900px;
@@ -120,7 +120,7 @@ body {
     filter: brightness(0.92) contrast(1.05);
 }
 
-/* Títulos */
+
 .secao-titulo {
     text-align: center;
     margin: 4rem 0 2.5rem 0;
@@ -145,7 +145,7 @@ h1 {
     letter-spacing: 0.5px;
 }
 
-/* Grelha de Livros */
+
 .grelha-livros {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -304,9 +304,7 @@ h1 {
     box-shadow: 0 6px 18px rgba(124, 58, 237, 0.5);
 }
 
-/* --- NOVAS REGRAS PARA PÁGINAS ADICIONAIS --- */
 
-/* Estilos de Formulário de Login / Cadastro */
 .container-login {
     max-width: 450px;
     margin: 5rem auto;
@@ -345,7 +343,7 @@ h1 {
     box-shadow: 0 0 8px rgba(163, 230, 53, 0.2);
 }
 
-/* Estilos do Carrinho e Inventário */
+
 .container-carrinho {
     max-width: 900px;
     margin: 4rem auto;
@@ -375,7 +373,7 @@ h1 {
     margin-top: 2rem;
 }
 
-/* Estilos para o Gerenciador de Estoque (Admin) */
+
 .tabela-estoque {
     width: 100%;
     border-collapse: collapse;
@@ -408,7 +406,7 @@ h1 {
     text-align: center;
 }
 
-/* Rodapé */
+
 .rodape-principal {
     background-color: var(--fundo-rodape);
     color: var(--texto-claro);

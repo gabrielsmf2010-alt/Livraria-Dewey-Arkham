@@ -59,20 +59,20 @@
         
         <section id="aba-login" class="aba-conteudo" style="display: none;">
             <div class="container-login" style="max-width: 400px; margin: 4rem auto; background: var(--fundo-cartao); padding: 2rem; border-radius: 8px; border: 1px solid rgba(124,58,237,0.2);">
-                <h2 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin-top: 0; text-align: center; margin-bottom: 1.5rem;">Identificação</h2>
+                <h2 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin-top: 0; text-align: center; margin-bottom: 1.5rem;">Login/cadastro</h2>
                 
                 <form id="form-login">
                     <div class="form-grupo" style="margin-bottom: 1rem;">
-                        <label for="email-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">E-mail ou Utilizador</label>
+                        <label for="email-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">E-mail ou nome de usúario</label>
                         <input type="text" id="email-login" placeholder="Digite seu e-mail ou nome de usuário" required style="width: 100%; padding: 10px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
                     </div>
 
                     <div class="form-grupo" style="margin-bottom: 1.5rem;">
-                        <label for="senha-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Palavra-passe</label>
+                        <label for="senha-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Senha</label>
                         <input type="password" id="senha-login" placeholder="••••••••" required style="width: 100%; padding: 10px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
                     </div>
 
-                    <button type="submit" class="btn-comprar" style="width: 100%; margin-top: 0; padding: 12px; cursor: pointer;">Aceder</button>
+                    <button type="submit" class="btn-comprar" style="width: 100%; margin-top: 0; padding: 12px; cursor: pointer;">Salvar</button>
                 </form>
             </div>
         </section>
@@ -83,14 +83,14 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0 1rem 0;">
                     <div>
                         <h1 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin: 0;">Painel de Controle do Administrador</h1>
-                        <p class="subtitulo-secao" style="margin: 5px 0 0 0;">Modifique os dados do acervo diretamente abaixo.</p>
+                        <p class="subtitulo-secao" style="margin: 5px 0 0 0;">Modifique os dados do estoque diretamente abaixo.</p>
                     </div>
                     <button onclick="sairAdmin()" class="btn-topo" style="border-color: var(--vermelho-botao); color: var(--vermelho-botao); background: none; cursor: pointer; padding: 8px 12px;">Sair</button>
                 </div>
 
                 <div id="lista-admin-produtos"></div>
 
-                <button onclick="salvarAlteracoesAdmin()" class="btn-comprar" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 1.5rem; cursor: pointer;">Salvar Alterações do Acervo</button>
+                <button onclick="salvarAlteracoesAdmin()" class="btn-comprar" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 1.5rem; cursor: pointer;">Salvar Alterações do estoque</button>
             </div>
         </section>
 

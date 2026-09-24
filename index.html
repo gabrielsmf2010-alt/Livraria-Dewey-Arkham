@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +34,11 @@
                 <p class="subtitulo-secao">Obras raras, ocultismo e investigação literária.</p>
             </div>
             
+            <!-- Barra de pesquisa -->
+            <div class="caixa-busca">
+                <input type="text" id="input-pesquisa" placeholder="Pesquisar por livro ou autor..." oninput="pesquisarLivros()">
+            </div>
+
             <div class="grelha-livros" id="vitrine-produtos"></div>
         </section>
 
@@ -59,20 +64,20 @@
         <!-- LOGIN -->
         <section id="aba-login" class="aba-conteudo" style="display: none;">
             <div class="container-login" style="max-width: 400px; margin: 4rem auto; background: var(--fundo-cartao); padding: 2rem; border-radius: 8px; border: 1px solid rgba(124,58,237,0.2);">
-                <h2 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin-top: 0; text-align: center; margin-bottom: 1.5rem;">Identificação</h2>
+                <h2 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin-top: 0; text-align: center; margin-bottom: 1.5rem;">Login</h2>
                 
                 <form id="form-login">
                     <div class="form-grupo" style="margin-bottom: 1rem;">
-                        <label for="email-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">E-mail ou Utilizador</label>
+                        <label for="email-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">E-mail ou Usuário</label>
                         <input type="text" id="email-login" placeholder="Digite seu e-mail ou nome de usuário" required style="width: 100%; padding: 10px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
                     </div>
 
                     <div class="form-grupo" style="margin-bottom: 1.5rem;">
-                        <label for="senha-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Palavra-passe</label>
+                        <label for="senha-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Senha</label>
                         <input type="password" id="senha-login" placeholder="••••••••" required style="width: 100%; padding: 10px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
                     </div>
 
-                    <button type="submit" class="btn-comprar" style="width: 100%; margin-top: 0; padding: 12px; cursor: pointer;">Aceder</button>
+                    <button type="submit" class="btn-comprar" style="width: 100%; margin-top: 0; padding: 12px; cursor: pointer;">Acessar</button>
                 </form>
             </div>
         </section>
@@ -83,14 +88,34 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0 1rem 0;">
                     <div>
                         <h1 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin: 0;">Painel de Controle do Administrador</h1>
-                        <p class="subtitulo-secao" style="margin: 5px 0 0 0;">Modifique os dados do acervo diretamente abaixo.</p>
+                        <p class="subtitulo-secao" style="margin: 5px 0 0 0;">Modifique os dados do catálogo diretamente abaixo.</p>
                     </div>
                     <button onclick="sairAdmin()" class="btn-topo" style="border-color: var(--vermelho-botao); color: var(--vermelho-botao); background: none; cursor: pointer; padding: 8px 12px;">Sair</button>
                 </div>
 
+                <!-- Formulário de adição de novo livro -->
+                <div style="background: var(--fundo-cartao); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed var(--verde-claro);">
+                    <h3 style="color: var(--verde-claro); margin-top: 0; margin-bottom: 15px; font-family: 'Cinzel', serif;">+ Adicionar Novo Livro</h3>
+                    <form id="form-novo-livro" style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="add-nome" placeholder="Nome do Livro" required class="input-estoque" style="flex: 2; width: auto; text-align: left;">
+                            <input type="text" id="add-autor" placeholder="Autor" required class="input-estoque" style="flex: 2; width: auto; text-align: left;">
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="number" id="add-preco" placeholder="Preço (ex: 50,00)" step="0.01" required class="input-estoque" style="flex: 1; width: auto; text-align: left;">
+                            <input type="number" id="add-estoque" placeholder="Quantidade em Estoque" required class="input-estoque" style="flex: 1; width: auto; text-align: left;">
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 5px;">
+                            <label style="color: var(--texto-secundario); font-size: 0.85rem;">Arquivo da Foto da Capa:</label>
+                            <input type="file" id="add-capa" accept="image/*" required style="color: white; font-size: 0.9rem;">
+                        </div>
+                        <button type="submit" class="btn-comprar" style="margin-top: 10px;">Adicionar ao Catálogo</button>
+                    </form>
+                </div>
+
                 <div id="lista-admin-produtos"></div>
 
-                <button onclick="salvarAlteracoesAdmin()" class="btn-comprar" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 1.5rem; cursor: pointer;">Salvar Alterações do Acervo</button>
+                <button onclick="salvarAlteracoesAdmin()" class="btn-comprar" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 1.5rem; cursor: pointer;">Salvar Alterações do Catálogo</button>
             </div>
         </section>
 
@@ -111,7 +136,7 @@
 
             <div class="coluna-rodape cadastro">
                 <h4>CADASTRE-SE</h4>
-                <p class="texto-newsletter">Receba avisos sobre tomos raros e investigações.</p>
+                <p class="texto-newsletter">Receba avisos sobre livros raros e investigações.</p>
                 <form class="form-cadastro">
                     <input type="text" placeholder="Digite seu nome aqui" required>
                     <div class="grupo-input">
@@ -139,6 +164,15 @@
             </p>
         </div>
     </footer>
+
+    <!-- Container dos Toasts -->
+    <div id="container-toast"></div>
+
+    <!-- Tela de Carregamento -->
+    <div id="tela-carregamento" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
+        <div class="spinner-loading" style="border: 4px solid var(--roxo-brilho); border-top: 4px solid var(--verde-claro); border-radius: 50%; width: 50px; height: 50px; animation: girar 1s linear infinite;"></div>
+        <p style="color: var(--verde-claro); margin-top: 15px; font-family: 'Cinzel', serif; font-size: 1.2rem;">Processando a transação...</p>
+    </div>
 
     <script src="script.js"></script>
 </body>

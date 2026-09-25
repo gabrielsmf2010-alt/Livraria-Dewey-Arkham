@@ -27,14 +27,14 @@
 
     <main>
 
-        <!-- LOJA -->
+        
         <section id="aba-loja" class="aba-conteudo">
             <div class="secao-titulo">
                 <h1>As Lendas de Arkham</h1>
                 <p class="subtitulo-secao">Obras raras, ocultismo e investigação literária.</p>
             </div>
             
-            <!-- Barra de pesquisa -->
+            
             <div class="caixa-busca">
                 <input type="text" id="input-pesquisa" placeholder="Pesquisar por livro ou autor..." oninput="pesquisarLivros()">
             </div>
@@ -42,7 +42,7 @@
             <div class="grelha-livros" id="vitrine-produtos"></div>
         </section>
 
-        <!-- CARRINHO -->
+        
         <section id="aba-carrinho" class="aba-conteudo" style="display: none;">
             <div class="container-carrinho" style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
                 <section class="secao-titulo" style="margin: 2rem 0 1.5rem 0;">
@@ -61,7 +61,7 @@
             </div>
         </section>
 
-        <!-- LOGIN -->
+       
         <section id="aba-login" class="aba-conteudo" style="display: none;">
             <div class="container-login" style="max-width: 400px; margin: 4rem auto; background: var(--fundo-cartao); padding: 2rem; border-radius: 8px; border: 1px solid rgba(124,58,237,0.2);">
                 <h2 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin-top: 0; text-align: center; margin-bottom: 1.5rem;">Login</h2>
@@ -82,7 +82,7 @@
             </div>
         </section>
 
-        <!-- PAINEL ADMIN -->
+        
         <section id="aba-admin" class="aba-conteudo" style="display: none;">
             <div class="container-carrinho" style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0 1rem 0;">
@@ -93,7 +93,7 @@
                     <button onclick="sairAdmin()" class="btn-topo" style="border-color: var(--vermelho-botao); color: var(--vermelho-botao); background: none; cursor: pointer; padding: 8px 12px;">Sair</button>
                 </div>
 
-                <!-- Formulário de adição de novo livro -->
+                
                 <div style="background: var(--fundo-cartao); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed var(--verde-claro);">
                     <h3 style="color: var(--verde-claro); margin-top: 0; margin-bottom: 15px; font-family: 'Cinzel', serif;">+ Adicionar Novo Livro</h3>
                     <form id="form-novo-livro" style="display: flex; flex-direction: column; gap: 10px;">
@@ -165,10 +165,10 @@
         </div>
     </footer>
 
-    <!-- Container dos Toasts -->
+    
     <div id="container-toast"></div>
 
-    <!-- Tela de Carregamento -->
+    
     <div id="tela-carregamento" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
         <div class="spinner-loading" style="border: 4px solid var(--roxo-brilho); border-top: 4px solid var(--verde-claro); border-radius: 50%; width: 50px; height: 50px; animation: girar 1s linear infinite;"></div>
         <p style="color: var(--verde-claro); margin-top: 15px; font-family: 'Cinzel', serif; font-size: 1.2rem;">Processando a transação...</p>

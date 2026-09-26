@@ -1,4 +1,4 @@
-// Array principal de produtos com mais itens setados com "promocao: true" para teste
+// Lista padrão de produtos iniciais da livraria
 let produtosPadrao = [
     { id: 1, titulo: "Iniciação", autor: 'Rafael "Cellbit" Lange', preco: 103.90, estoque: 15, capa: "capas dos livros/Capa-iniciacao.webp", promocao: true },
     { id: 2, titulo: "Segredo na Floresta - Parte 1", autor: 'Rafael "Cellbit" Lange', preco: 149.90, estoque: 50, capa: "capas dos livros/capa-o-segredo-na-floresta-part1.webp", promocao: true },
@@ -17,18 +17,21 @@ let produtosPadrao = [
     { id: 15, titulo: "Herbert West: Reanimator", autor: "H.P. Lovecraft", preco: 99.90, estoque: 67, capa: "capas dos livros/capa-reanimator.webp" }
 ];
 
-// Gerenciamento de LocalStorage
+// Obtém o estoque salvo no navegador ou usa o padrão[cite: 15]
 function obterEstoque() {
     let salvo = localStorage.getItem('estoqueLoja');
     return salvo ? JSON.parse(salvo) : produtosPadrao;
 }
 
+// Salva o estoque atualizado no localStorage[cite: 15]
 function salvarEstoque(estoque) {
     localStorage.setItem('estoqueLoja', JSON.stringify(estoque));
 }
 
+// Carrega os itens do carrinho salvos no navegador[cite: 15]
 let carrinho = JSON.parse(localStorage.getItem('carrinhoLoja')) || [];
 
+// Exibe notificações flutuantes (toasts) na tela[cite: 15]
 function mostrarToast(mensagem) {
     const container = document.getElementById('container-toast');
     const div = document.createElement('div');
@@ -42,6 +45,7 @@ function mostrarToast(mensagem) {
     }, 2000);
 }
 
+// Alterna entre as abas visíveis do site (loja, carrinho, login, admin)[cite: 15]
 function mudarAba(nomeAba) {
     document.querySelectorAll('.aba-conteudo').forEach(aba => {
         aba.style.display = 'none';
@@ -54,7 +58,7 @@ function mudarAba(nomeAba) {
 
     const banner = document.getElementById('bloco-banner');
     if (banner) {
-        banner.style.display = (nomeAba === 'loja') ? 'block' : 'none';
+        banner.style.display = (nomeAba === 'loja') ? 'flex' : 'none';
     }
 
     window.scrollTo(0, 0);
@@ -67,6 +71,7 @@ function mudarAba(nomeAba) {
     if (nomeAba === 'admin') renderizarPainelAdmin();
 }
 
+// Atualiza o contador de itens no topo do site[cite: 15]
 function atualizarContador() {
     const contadores = document.querySelectorAll('.contador-carrinho');
     let totalUnidades = 0;
@@ -77,6 +82,7 @@ function atualizarContador() {
     });
 }
 
+// Verifica se há um usuário logado para alterar o botão do topo[cite: 15]
 function verificarSessaoTopo() {
     const linkLogin = document.getElementById('link-login-topo');
     const usuarioLogado = localStorage.getItem('usuarioLogado');
@@ -102,6 +108,7 @@ function verificarSessaoTopo() {
     }
 }
 
+// Gerencia o clique no botão de login do topo[cite: 15]
 function gerenciarCliqueLogin() {
     if (localStorage.getItem('usuarioLogado')) {
         if (confirm("Deseja encerrar a sessão?")) {
@@ -114,6 +121,7 @@ function gerenciarCliqueLogin() {
     }
 }
 
+// Verifica se o usuário atual tem permissão de administrador[cite: 15]
 function verificarAcessoAdmin() {
     if (localStorage.getItem('adminAutenticado') === 'true') {
         mudarAba('admin');
@@ -123,11 +131,13 @@ function verificarAcessoAdmin() {
     }
 }
 
+// Filtra os livros da vitrine com base na pesquisa[cite: 15]
 function pesquisarLivros() {
     const textoDigitado = document.getElementById('input-pesquisa').value.toLowerCase();
     renderizarVitrine(textoDigitado);
 }
 
+// Renderiza os cards de produtos na vitrine da loja[cite: 15]
 function renderizarVitrine(filtroTexto = '') {
     const vitrine = document.getElementById('vitrine-produtos');
     if (!vitrine) return;
@@ -140,7 +150,7 @@ function renderizarVitrine(filtroTexto = '') {
     });
 
     if (livrosFiltrados.length === 0) {
-        vitrine.innerHTML = '<p style="text-align: center; grid-column: 1 / -1;">Nenhum livro foi encontrado na pesquisa.</p>';
+        vitrine.innerHTML = '<p class="mensagem-busca-vazia">Nenhum livro foi encontrado na pesquisa.</p>';
         return;
     }
 
@@ -150,7 +160,7 @@ function renderizarVitrine(filtroTexto = '') {
         
         let esgotou = produto.estoque === 0;
         let textoBotao = esgotou ? "Esgotado" : "Comprar";
-        let statusDisabled = esgotou ? "disabled style='background-color: #374151; cursor: not-allowed; opacity: 0.7;'" : `onclick="adicionarAoCarrinho(${produto.id})"`;
+        let statusDisabled = esgotou ? "disabled class='btn-comprar btn-esgotado'" : `onclick="adicionarAoCarrinho(${produto.id})" class="btn-comprar"`;
         
         let badgeClasse = produto.promocao ? "promocao" : "";
         
@@ -182,12 +192,13 @@ function renderizarVitrine(filtroTexto = '') {
             <div class="info-secundaria"><p class="autor">(${produto.autor})</p></div>
             ${blocoPrecoHTML}
             <span class="info-stock">Em estoque: <span class="qtd-estoque">${produto.estoque}</span> cópias</span>
-            <button class="btn-comprar" ${statusDisabled}>${textoBotao}</button>
+            <button ${statusDisabled}>${textoBotao}</button>
         `;
         vitrine.appendChild(cartao);
     });
 }
 
+// Adiciona um produto selecionado ao carrinho de compras[cite: 15]
 window.adicionarAoCarrinho = function(idProduto) {
     let estoque = obterEstoque();
     let produto = estoque.find(p => p.id === idProduto);
@@ -217,6 +228,7 @@ window.adicionarAoCarrinho = function(idProduto) {
     atualizarContador();
 };
 
+// Renderiza a lista de itens dentro do carrinho[cite: 15]
 function renderizarCarrinho() {
     const container = document.getElementById('lista-carrinho');
     const elementoTotal = document.getElementById('total-carrinho');
@@ -239,14 +251,14 @@ function renderizarCarrinho() {
         total += precoSoma;
 
         const div = document.createElement('div');
-        div.style.cssText = "display: flex; align-items: center; background: var(--fundo-cartao); padding: 15px; margin-bottom: 10px; border-radius: 6px; border: 1px solid rgba(124,58,237,0.2);";
+        div.className = 'item-carrinho-bloco-dinamico';
         div.innerHTML = `
-            <img src="${item.capa}" alt="${item.titulo}" style="width: 50px; height: 70px; object-fit: cover; border-radius: 4px;">
-            <div style="flex-grow: 1; margin-left: 15px;">
-                <h4 style="margin: 0; color: var(--verde-claro); font-family: 'Cinzel', serif;">${item.titulo}</h4>
-                <span style="color: var(--texto-secundario);">R$ ${item.preco.toFixed(2).replace('.', ',')} (Quantidade: ${qtdDaVez})</span>
+            <img src="${item.capa}" alt="${item.titulo}" class="imagem-item-carrinho">
+            <div class="detalhes-item-carrinho">
+                <h4 class="titulo-item-carrinho">${item.titulo}</h4>
+                <span class="subtexto-item-carrinho">R$ ${item.preco.toFixed(2).replace('.', ',')} (Quantidade: ${qtdDaVez})</span>
             </div>
-            <button onclick="removerItem(${index})" style="border: 1px solid var(--vermelho-botao); color: var(--vermelho-botao); background:none; padding: 5px 10px; cursor:pointer; border-radius: 4px;">Remover</button>
+            <button onclick="removerItem(${index})" class="btn-remover-carrinho">Remover</button>
         `;
         container.appendChild(div);
     });
@@ -256,10 +268,11 @@ function renderizarCarrinho() {
     }
 
     if (containerBtnFinalizar) {
-        containerBtnFinalizar.innerHTML = `<button onclick="finalizarCompra()" class="btn-comprar" style="width: 100%; margin-top: 0; padding: 12px; font-size: 1rem; cursor: pointer;">Finalizar Compra</button>`;
+        containerBtnFinalizar.innerHTML = `<button onclick="finalizarCompra()" class="btn-comprar btn-finalizar-grande">Finalizar Compra</button>`;
     }
 }
 
+// Remove um item específico do carrinho[cite: 15]
 window.removerItem = function(index) {
     carrinho.splice(index, 1);
     localStorage.setItem('carrinhoLoja', JSON.stringify(carrinho));
@@ -267,6 +280,7 @@ window.removerItem = function(index) {
     atualizarContador();
 };
 
+// Finaliza a compra e abate as quantidades do estoque real[cite: 15]
 window.finalizarCompra = function() {
     document.getElementById('tela-carregamento').style.display = 'flex';
     
@@ -291,6 +305,7 @@ window.finalizarCompra = function() {
     }, 2500);
 };
 
+// Inicializa o sistema de login com credenciais padrão[cite: 15]
 function inicializarLogin() {
     const form = document.getElementById('form-login');
     if (!form) return;
@@ -319,6 +334,7 @@ function inicializarLogin() {
     });
 }
 
+// Renderiza a lista de produtos no painel administrativo[cite: 15]
 function renderizarPainelAdmin() {
     const containerAdmin = document.getElementById('lista-admin-produtos');
     if (!containerAdmin) return;
@@ -328,74 +344,116 @@ function renderizarPainelAdmin() {
 
     estoque.forEach((produto) => {
         const bloco = document.createElement('div');
-        bloco.style.cssText = "background: var(--fundo-cartao); padding: 15px; margin-bottom: 15px; border-radius: 6px; border: 1px solid rgba(124,58,237,0.3); display: flex; flex-direction: column; gap: 10px;";
+        bloco.className = 'bloco-item-admin';
         bloco.innerHTML = `
-            <div style="font-size: 0.85rem; color: var(--texto-secundario);">Autor: <strong>${produto.autor}</strong></div>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <div style="flex: 2; min-width: 200px;">
-                    <label style="font-size: 0.8rem; display: block; color: var(--verde-claro);">Nome do Produto:</label>
-                    <input type="text" class="adm-nome" value="${produto.titulo}" style="width: 100%; padding: 8px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
+            <div class="autor-admin">Autor: <strong>${produto.autor}</strong></div>
+            <div class="linha-inputs-admin">
+                <div class="grupo-input-admin-flex-2">
+                    <label class="label-admin-input">Nome do Produto:</label>
+                    <input type="text" class="adm-nome input-admin-custom" value="${produto.titulo}">
                 </div>
-                <div style="flex: 1; min-width: 100px;">
-                    <label style="font-size: 0.8rem; display: block; color: var(--verde-claro);">Preço (R$):</label>
-                    <input type="number" step="0.01" class="adm-preco" value="${produto.preco.toFixed(2)}" style="width: 100%; padding: 8px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
+                <div class="grupo-input-admin-flex-1">
+                    <label class="label-admin-input">Preço (R$):</label>
+                    <input type="number" step="0.01" class="adm-preco input-admin-custom" value="${produto.preco.toFixed(2)}">
                 </div>
-                <div style="flex: 1; min-width: 100px;">
-                    <label style="font-size: 0.8rem; display: block; color: var(--verde-claro);">Estoque:</label>
-                    <input type="number" class="adm-estoque" value="${produto.estoque}" style="width: 100%; padding: 8px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
+                <div class="grupo-input-admin-flex-1">
+                    <label class="label-admin-input">Estoque:</label>
+                    <input type="number" class="adm-estoque input-admin-custom" value="${produto.estoque}">
                 </div>
             </div>
+            <!-- Botão de excluir visual (usa .remove() via DOM para sumir da tela sem afetar o estoque real) -->
+            <button onclick="removerLivroEstoqueVisual(this)" class="btn-remover-carrinho">Remover Livro</button>
         `;
         containerAdmin.appendChild(bloco);
     });
 }
 
+// MODIFICAÇÃO SOLICITADA: Exclusão estritamente visual utilizando o DOM (.remove)
+window.removerLivroEstoqueVisual = function(botaoElemento) {
+    if (confirm("Tem certeza de que deseja remover este item da visualização?")) {
+        const blocoItem = botaoElemento.closest('.bloco-item-admin');
+        if (blocoItem) {
+            blocoItem.remove(); // Remove apenas do DOM visualmente
+            mostrarToast("Livro removido da visualização com sucesso.");
+        }
+    }
+};
+
+// MODIFICAÇÃO SOLICITADA: Adição estritamente visual utilizando o DOM (document.createElement e appendChild)
 document.getElementById('form-novo-livro')?.addEventListener('submit', function(e) {
     e.preventDefault();
     
-    let estoque = obterEstoque();
-    let maiorId = 0;
-    estoque.forEach(p => { if (p.id > maiorId) maiorId = p.id; });
-    
+    const containerAdmin = document.getElementById('lista-admin-produtos');
     const inputArquivo = document.getElementById('add-capa');
     
+    const tituloVal = document.getElementById('add-nome').value.trim();
+    const autorVal = document.getElementById('add-autor').value.trim();
+    const precoVal = parseFloat(document.getElementById('add-preco').value) || 0;
+    const estoqueVal = parseInt(document.getElementById('add-estoque').value) || 0;
+
+    // Função interna auxiliar para criar o bloco visual do novo item no painel
+    function criarBlocoVisual(capaSrc) {
+        const bloco = document.createElement('div');
+        bloco.className = 'bloco-item-admin';
+        bloco.innerHTML = `
+            <div class="autor-admin">Autor: <strong>${autorVal}</strong></div>
+            <div class="linha-inputs-admin">
+                <div class="grupo-input-admin-flex-2">
+                    <label class="label-admin-input">Nome do Produto:</label>
+                    <input type="text" class="adm-nome input-admin-custom" value="${tituloVal}">
+                </div>
+                <div class="grupo-input-admin-flex-1">
+                    <label class="label-admin-input">Preço (R$):</label>
+                    <input type="number" step="0.01" class="adm-preco input-admin-custom" value="${precoVal.toFixed(2)}">
+                </div>
+                <div class="grupo-input-admin-flex-1">
+                    <label class="label-admin-input">Estoque:</label>
+                    <input type="number" class="adm-estoque input-admin-custom" value="${estoqueVal}">
+                </div>
+            </div>
+            <button onclick="removerLivroEstoqueVisual(this)" class="btn-remover-carrinho">Remover Livro</button>
+        `;
+        
+        // Adiciona o elemento criado dinamicamente usando appendChild no DOM
+        if (containerAdmin) {
+            containerAdmin.appendChild(bloco);
+        }
+        
+        document.getElementById('form-novo-livro').reset();
+        mostrarToast("Novo registro adicionado à visualização com sucesso (Apenas Visual).");
+    }
+
     if (inputArquivo.files && inputArquivo.files[0]) {
         let leitor = new FileReader();
         leitor.onload = function(eventoArquivo) {
-            
-            let novoLivro = {
-                id: maiorId + 1,
-                titulo: document.getElementById('add-nome').value.trim(),
-                autor: document.getElementById('add-autor').value.trim(),
-                preco: parseFloat(document.getElementById('add-preco').value) || 0,
-                estoque: parseInt(document.getElementById('add-estoque').value) || 0,
-                capa: eventoArquivo.target.result
-            };
-            
-            estoque.push(novoLivro);
-            salvarEstoque(estoque);
-            mostrarToast("Novo registro adicionado ao catálogo com sucesso.");
-            
-            document.getElementById('form-novo-livro').reset();
-            renderizarPainelAdmin();
+            criarBlocoVisual(eventoArquivo.target.result);
         };
         leitor.readAsDataURL(inputArquivo.files[0]);
+    } else {
+        criarBlocoVisual('');
     }
 });
 
+// Salva as alterações feitas nos inputs do painel administrativo (mantido funcional para os demais elementos)[cite: 15]
 window.salvarAlteracoesAdmin = function() {
     const blocos = document.querySelectorAll('#lista-admin-produtos > div');
     let estoque = obterEstoque();
 
     blocos.forEach((bloco, index) => {
-        const novoNome = bloco.querySelector('.adm-nome').value;
-        const novoPreco = parseFloat(bloco.querySelector('.adm-preco').value) || 0;
-        const novoEstoque = parseInt(bloco.querySelector('.adm-estoque').value) || 0;
+        const inputNome = bloco.querySelector('.adm-nome');
+        const inputPreco = bloco.querySelector('.adm-preco');
+        const inputEstoque = bloco.querySelector('.adm-estoque');
 
-        if (estoque[index]) {
-            estoque[index].titulo = novoNome;
-            estoque[index].preco = novoPreco;
-            estoque[index].estoque = novoEstoque;
+        if (inputNome && inputPreco && inputEstoque) {
+            const novoNome = inputNome.value;
+            const novoPreco = parseFloat(inputPreco.value) || 0;
+            const novoEstoque = parseInt(inputEstoque.value) || 0;
+
+            if (estoque[index]) {
+                estoque[index].titulo = novoNome;
+                estoque[index].preco = novoPreco;
+                estoque[index].estoque = novoEstoque;
+            }
         }
     });
 
@@ -404,6 +462,7 @@ window.salvarAlteracoesAdmin = function() {
     renderizarVitrine();
 };
 
+// Encerra a sessão de administrador[cite: 15]
 window.sairAdmin = function() {
     localStorage.removeItem('adminAutenticado');
     localStorage.removeItem('usuarioLogado');
@@ -411,6 +470,7 @@ window.sairAdmin = function() {
     mudarAba('loja');
 };
 
+// Executa funções iniciais assim que a página é carregada[cite: 15]
 document.addEventListener('DOMContentLoaded', () => {
     atualizarContador();
     verificarSessaoTopo();

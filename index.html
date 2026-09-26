@@ -1,139 +1,273 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- Configurações de codificação de texto e ajuste de escala para dispositivos móveis -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livraria Dewey Arkham | Obras Raras e Investigação</title>
     
+    <!-- Título exibido na aba do navegador e ícone do site (favicon) -->
+    <title>Livraria Dewey Arkham</title>
     <link rel="icon" href="icone-provisorio.jpg" type="image/jpeg">
+    
+    <!-- Vincula o arquivo de estilos CSS externo -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- ========================================== -->
+    <!-- BARRA DE NAVEGAÇÃO SUPERIOR (FIXA)         -->
+    <!-- ========================================== -->
     <nav class="barra-topo">
+        <!-- Botão para acessar o carrinho de compras e exibir a quantidade de itens -->
         <a href="#" onclick="mudarAba('carrinho')" class="btn-topo">
             <span>Carrinho</span>
             <span class="contador-carrinho">0</span>
         </a>
-        <div class="marca-topo"><a href="#" onclick="mudarAba('loja')" style="color: inherit; text-decoration: none;">Dewey Arkham</a></div>
+        
+        <!-- Logo/Nome da marca centralizado que redireciona para a página inicial (loja) -->
+        <div class="marca-topo">
+            <a href="#" onclick="mudarAba('loja')" class="link-marca-topo">Dewey Arkham</a>
+        </div>
+        
+        <!-- Botão para Login ou Cadastro (muda dinamicamente se o usuário estiver logado) -->
         <a href="#" id="link-login-topo" onclick="gerenciarCliqueLogin()" class="btn-topo">Login - Cadastro</a>
     </nav>
 
+    <!-- ========================================== -->
+    <!-- BANNER DE DESTAQUE                         -->
+    <!-- ========================================== -->
     <header class="cabecalho-banner" id="bloco-banner">
         <div class="moldura-banner">
+            <!-- Imagem principal de apresentação da loja -->
             <img src="banner-da-livraria-provisorio.jpg" alt="Banner da Livraria">
         </div>
     </header>
 
+    <!-- ========================================== -->
+    <!-- CONTEÚDO PRINCIPAL (DIVIDIDO EM ABAS)      -->
+    <!-- ========================================== -->
     <main>
-
         
+        <!-- ABA 1: VITRINE DA LOJA (Padrão visível) -->
         <section id="aba-loja" class="aba-conteudo">
             <div class="secao-titulo">
                 <h1>As Lendas de Arkham</h1>
                 <p class="subtitulo-secao">Obras raras, ocultismo e investigação literária.</p>
             </div>
             
-            
+            <!-- Barra de pesquisa de produtos -->
             <div class="caixa-busca">
                 <input type="text" id="input-pesquisa" placeholder="Pesquisar por livro ou autor..." oninput="pesquisarLivros()">
             </div>
 
+            <!-- Grade onde os livros (cards) serão injetados pelo JavaScript -->
             <div class="grelha-livros" id="vitrine-produtos"></div>
         </section>
 
-        
+        <!-- ABA 2: CARRINHO DE COMPRAS (Oculta por padrão) -->
         <section id="aba-carrinho" class="aba-conteudo" style="display: none;">
-            <div class="container-carrinho" style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
-                <section class="secao-titulo" style="margin: 2rem 0 1.5rem 0;">
+            <div class="container-carrinho-secao">
+                <section class="secao-titulo secao-titulo-carrinho">
                     <h1>Inventário Selecionado</h1>
                     <p class="subtitulo-secao">Revise os itens escolhidos para a sua investigação.</p>
                 </section>
 
+                <!-- Área onde os itens adicionados ao carrinho aparecerão -->
                 <div id="lista-carrinho"></div>
 
-                <div class="resumo-carrinho" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; background: var(--fundo-cartao); padding: 15px; border-radius: 6px;">
-                    <span style="font-weight: 600;">Total da Compra:</span>
-                    <strong id="total-carrinho" class="info-preco" style="font-size: 1.3rem;">R$ 0,00</strong>
+                <!-- Resumo financeiro com o valor total da compra -->
+                <div class="resumo-carrinho-bloco">
+                    <span class="texto-total-rotulo">Total da Compra:</span>
+                    <strong id="total-carrinho" class="info-preco texto-total-valor">R$ 0,00</strong>
                 </div>
 
-                <div id="container-btn-finalizar" style="margin-top: 1.5rem;"></div>
+                <!-- Botão de finalizar compra (injetado via JS quando há itens) -->
+                <div id="container-btn-finalizar" class="espacamento-topo-padrao"></div>
             </div>
         </section>
 
-       
+        <!-- ABA 3: TELA DE LOGIN (Oculta por padrão) -->
         <section id="aba-login" class="aba-conteudo" style="display: none;">
-            <div class="container-login" style="max-width: 400px; margin: 4rem auto; background: var(--fundo-cartao); padding: 2rem; border-radius: 8px; border: 1px solid rgba(124,58,237,0.2);">
-                <h2 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin-top: 0; text-align: center; margin-bottom: 1.5rem;">Login</h2>
+            <div class="container-login-centralizado">
+                <h2 class="titulo-login-form">Login</h2>
                 
+                <!-- Formulário de autenticação de usuário ou administrador -->
                 <form id="form-login">
-                    <div class="form-grupo" style="margin-bottom: 1rem;">
-                        <label for="email-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">E-mail ou Usuário</label>
-                        <input type="text" id="email-login" placeholder="Digite seu e-mail ou nome de usuário" required style="width: 100%; padding: 10px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
+                    <div class="form-grupo form-grupo-espacado">
+                        <label for="email-login">E-mail ou Usuário</label>
+                        <input type="text" id="email-login" placeholder="Digite seu e-mail ou nome de usuário" required class="input-campo-customizado">
                     </div>
 
-                    <div class="form-grupo" style="margin-bottom: 1.5rem;">
-                        <label for="senha-login" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Senha</label>
-                        <input type="password" id="senha-login" placeholder="••••••••" required style="width: 100%; padding: 10px; background: #020617; border: 1px solid #334155; color: white; border-radius: 4px;">
+                    <div class="form-grupo form-grupo-espacado-maior">
+                        <label for="senha-login">Senha</label>
+                        <input type="password" id="senha-login" placeholder="••••••••" required class="input-campo-customizado">
                     </div>
 
-                    <button type="submit" class="btn-comprar" style="width: 100%; margin-top: 0; padding: 12px; cursor: pointer;">Acessar</button>
+                    <button type="submit" class="btn-comprar btn-comprar-login">Acessar</button>
                 </form>
             </div>
         </section>
 
-        
+        <!-- ABA 4: PAINEL DE CONTROLE / ADMINISTRAÇÃO (Oculta por padrão) -->
         <section id="aba-admin" class="aba-conteudo" style="display: none;">
-            <div class="container-carrinho" style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0 1rem 0;">
+            <div class="container-carrinho-secao">
+                <div class="admin-cabecalho-painel">
                     <div>
-                        <h1 style="font-family: 'Cinzel', serif; color: var(--verde-claro); margin: 0;">Painel de Controle do Administrador</h1>
-                        <p class="subtitulo-secao" style="margin: 5px 0 0 0;">Modifique os dados do catálogo diretamente abaixo.</p>
+                        <h1 class="titulo-admin-painel">Painel de Controle</h1>
+                        <p class="subtitulo-secao subtitulo-admin">Modifique os dados do catálogo.</p>
                     </div>
-                    <button onclick="sairAdmin()" class="btn-topo" style="border-color: var(--vermelho-botao); color: var(--vermelho-botao); background: none; cursor: pointer; padding: 8px 12px;">Sair</button>
+                    <!-- Botão para encerrar a sessão de administrador -->
+                    <button onclick="sairAdmin()" class="btn-topo btn-sair-admin">Sair</button>
                 </div>
 
-                
-                <div style="background: var(--fundo-cartao); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed var(--verde-claro);">
-                    <h3 style="color: var(--verde-claro); margin-top: 0; margin-bottom: 15px; font-family: 'Cinzel', serif;">+ Adicionar Novo Livro</h3>
-                    <form id="form-novo-livro" style="display: flex; flex-direction: column; gap: 10px;">
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" id="add-nome" placeholder="Nome do Livro" required class="input-estoque" style="flex: 2; width: auto; text-align: left;">
-                            <input type="text" id="add-autor" placeholder="Autor" required class="input-estoque" style="flex: 2; width: auto; text-align: left;">
+                <!-- Formulário para cadastro de novos livros no estoque -->
+                <div class="bloco-adicionar-livro">
+                    <h3 class="titulo-adicionar-livro">+ Adicionar Novo Livro</h3>
+                    <form id="form-novo-livro" class="form-adicionar-grid">
+                        <div class="form-linha-flex">
+                            <input type="text" id="add-nome" placeholder="Nome do Livro" required class="input-admin-custom input-flex-expandido">
+                            <input type="text" id="add-autor" placeholder="Autor" required class="input-admin-custom input-flex-expandido">
                         </div>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="number" id="add-preco" placeholder="Preço (ex: 50,00)" step="0.01" required class="input-estoque" style="flex: 1; width: auto; text-align: left;">
-                            <input type="number" id="add-estoque" placeholder="Quantidade em Estoque" required class="input-estoque" style="flex: 1; width: auto; text-align: left;">
+                        <div class="form-linha-flex">
+                            <input type="number" id="add-preco" placeholder="Preço (ex: 50,00)" step="0.01" required class="input-admin-custom input-flex-unico">
+                            <input type="number" id="add-estoque" placeholder="Quantidade em Estoque" required class="input-admin-custom input-flex-unico">
                         </div>
-                        <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 5px;">
-                            <label style="color: var(--texto-secundario); font-size: 0.85rem;">Arquivo da Foto da Capa:</label>
-                            <input type="file" id="add-capa" accept="image/*" required style="color: white; font-size: 0.9rem;">
+                        <div class="form-grupo-arquivo">
+                            <label class="label-arquivo-capa">Arquivo da Foto da Capa:</label>
+                            <input type="file" id="add-capa" accept="image/*" required class="input-arquivo-customizado">
                         </div>
-                        <button type="submit" class="btn-comprar" style="margin-top: 10px;">Adicionar ao Catálogo</button>
+                        <button type="submit" class="btn-salvar-catalogo">Adicionar ao Catálogo</button>
                     </form>
                 </div>
 
+                <!-- Lista de produtos existentes para edição -->
                 <div id="lista-admin-produtos"></div>
+                <button onclick="salvarAlteracoesAdmin()" class="btn-salvar-catalogo">Salvar Alterações</button>
+            </div>
+        </section>
 
-                <button onclick="salvarAlteracoesAdmin()" class="btn-comprar" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 1.5rem; cursor: pointer;">Salvar Alterações do Catálogo</button>
+        <!-- ABAS INSTITUCIONAIS SECUNDÁRIAS (Todas ocultas por padrão) -->
+        
+        <!-- Avaliações dos Clientes com Carrossel de comentários -->
+        <section id="aba-avaliacoes" class="aba-conteudo" style="display: none;">
+            <div class="container-carrinho-secao">
+                <div class="secao-titulo">
+                    <h1>Avaliações dos Clientes</h1>
+                    <p class="subtitulo-secao">Veja o que acham da nossa loja.</p>
+                </div>
+                <!-- Estrutura do carrossel usando inputs do tipo radio invisíveis para transição (CSS puro) -->
+                <div class="carrossel-ds">
+                    <input type="radio" name="slider" id="s1" checked>
+                    <input type="radio" name="slider" id="s2">
+                    <input type="radio" name="slider" id="s3">
+
+                    <div class="area-slides">
+                        <div class="meu-slide">
+                            <h3>Ótima loja!</h3>
+                            <p>"Comprei um livro de RPG e chegou super rápido. A embalagem veio perfeita."</p>
+                            <p><strong>- João P.</strong></p>
+                        </div>
+                        <div class="meu-slide">
+                            <h3>Acervo incrível</h3>
+                            <p>"Encontrei livros que não achava em nenhum outro lugar. Muito bom."</p>
+                            <p><strong>- Maria S.</strong></p>
+                        </div>
+                        <div class="meu-slide">
+                            <h3>Recomendo</h3>
+                            <p>"O suporte me ajudou com uma dúvida sobre o estoque. Atendimento nota 10."</p>
+                            <p><strong>- Lucas M.</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- Botões navegadores do carrossel -->
+                    <div class="botoes-carrossel">
+                        <label for="s1"></label>
+                        <label for="s2"></label>
+                        <label for="s3"></label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Parcerias / Vendas B2B -->
+        <section id="aba-venda" class="aba-conteudo" style="display: none;">
+            <div class="container-carrinho-secao">
+                <div class="secao-titulo">
+                    <h1>Venda nossos produtos</h1>
+                    <p class="subtitulo-secao">Seja um parceiro da Dewey Arkham.</p>
+                </div>
+                <div class="box-texto-simples">
+                    <p>Se você tem uma loja ou quer revender nossos livros e materiais de RPG, entre em contato com a gente.</p>
+                    <p>Mande um email para <strong>parcerias@deweyarkham.com.br</strong> com os dados da sua loja para receber nossa tabela de preços com desconto.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Contato e Suporte -->
+        <section id="aba-suporte" class="aba-conteudo" style="display: none;">
+            <div class="container-carrinho-secao">
+                <div class="secao-titulo">
+                    <h1>Suporte</h1>
+                    <p class="subtitulo-secao">Precisa de ajuda?</p>
+                </div>
+                <div class="box-texto-simples">
+                    <p>Entre em contato pelos canais abaixo:</p>
+                    <ul>
+                        <li>Email: suporte@deweyarkham.com.br</li>
+                        <li>Telefone: (11) 99999-0000</li>
+                        <li>Horário: 09h às 18h</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Termos de Uso -->
+        <section id="aba-termos" class="aba-conteudo" style="display: none;">
+            <div class="container-carrinho-secao">
+                <div class="secao-titulo">
+                    <h1>Termos de Uso</h1>
+                </div>
+                <div class="box-texto-simples">
+                    <p>1. Os produtos dependem do estoque.</p>
+                    <p>2. O prazo de entrega pode variar dependendo dos correios.</p>
+                    <p>3. Não fazemos devolução de livros com marcas de uso.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de História da Loja (Sobre Nós) -->
+        <section id="aba-sobre" class="aba-conteudo" style="display: none;">
+            <div class="container-carrinho-secao">
+                <div class="secao-titulo">
+                    <h1>A História da Livraria Arkham</h1>
+                </div>
+                <div class="box-texto-simples">
+                    <p>Fundada em 2014 no coração de um antigo casarão de paralelepípedos, a Livraria Dewey Arkham nasceu da paixão visceral de um grupo de pesquisadores independentes e livreiros antiquários dedicados à literatura fantástica, ao terror gótico e aos recantos mais obscuros da história intelectual. O nome é uma homenagem dupla: "Dewey" remete ao rigor clássico do sistema de catalogação universal que mantém a ordem em meio ao caos dos alfarrábios, enquanto "Arkham" evoca o imaginário das cidades portuárias de Nova Inglaterra e o fascínio pelas investigações do desconhecido — um aceno direto aos mestres do horror cósmico como H.P. Lovecraft. O que começou como um modesto armazém de livros esgotados e edições de colecionador rapidamente se transformou em um ponto de referência para estudiosos do ocultismo, jogadores de RPG investigativo, escritores e leitores em busca de obras que o mercado editorial tradicional costuma esquecer. Cada volume em nossas prateleiras é selecionado a dedo, avaliado por seu estado de conservação e por seu valor histórico ou narrativo. Mais do que uma livraria, a Dewey Arkham opera como um santuário para mentes curiosas. Aqui, a literatura não é apenas consumida; ela é investigada, debatida e preservada como um vestígio de mundos que residem à margem da realidade comum.</p>
+                </div>
             </div>
         </section>
 
     </main>
 
+    <!-- ========================================== -->
+    <!-- RODAPÉ PRINCIPAL                           -->
+    <!-- ========================================== -->
     <footer class="rodape-principal">
         <div class="rodape-conteudo">
+            
+            <!-- Coluna 1: Links Institucionais rápidos -->
             <div class="coluna-rodape institucional">
                 <h4>INSTITUCIONAL</h4>
                 <ul>
-                    <li><a href="#">Suporte</a></li>
-                    <li><a href="#">Avaliações</a></li>
-                    <li><a href="#">Venda nossos produtos</a></li>
-                    <li><a href="#">Termos de uso</a></li>
-                    <li><a href="#">Sobre a Livraria Dewey Arkham</a></li>
+                    <li><a href="#" onclick="mudarAba('suporte')">Suporte</a></li>
+                    <li><a href="#" onclick="mudarAba('avaliacoes')">Avaliações</a></li>
+                    <li><a href="#" onclick="mudarAba('venda')">Venda nossos produtos</a></li>
+                    <li><a href="#" onclick="mudarAba('termos')">Termos de uso</a></li>
+                    <li><a href="#" onclick="mudarAba('sobre')">Sobre nós</a></li>
                 </ul>
             </div>
 
+            <!-- Coluna 2: Formulário de Newsletter -->
             <div class="coluna-rodape cadastro">
                 <h4>CADASTRE-SE</h4>
                 <p class="texto-newsletter">Receba avisos sobre livros raros e investigações.</p>
@@ -146,6 +280,7 @@
                 </form>
             </div>
 
+            <!-- Coluna 3: Links para Redes Sociais -->
             <div class="coluna-rodape redes-sociais">
                 <h4>SIGA-NOS</h4>
                 <div class="icones-redes">
@@ -158,22 +293,27 @@
             </div>
         </div>
 
+        <!-- Direitos Autorais e Link Oculto para o Painel Admin -->
         <div class="rodape-direitos">
             <p>&copy; 2026 Arkham. Todos os direitos reservados. 
-               <a href="#" onclick="verificarAcessoAdmin()" style="color: inherit; text-decoration: none; opacity: 0.15; margin-left: 10px; font-size: 0.7rem;" title="Painel Restrito">⚙️</a>
+               <a href="#" onclick="verificarAcessoAdmin()" class="link-painel-secreto" title="Painel Restrito">⚙️</a>
             </p>
         </div>
     </footer>
 
-    
+    <!-- ========================================== -->
+    <!-- ELEMENTOS FLUTUANTES GLOBAIS               -->
+    <!-- ========================================== -->
+    <!-- Container que agrupa os alertas popup (toasts) -->
     <div id="container-toast"></div>
-
     
-    <div id="tela-carregamento" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
-        <div class="spinner-loading" style="border: 4px solid var(--roxo-brilho); border-top: 4px solid var(--verde-claro); border-radius: 50%; width: 50px; height: 50px; animation: girar 1s linear infinite;"></div>
-        <p style="color: var(--verde-claro); margin-top: 15px; font-family: 'Cinzel', serif; font-size: 1.2rem;">Processando a transação...</p>
+    <!-- Tela de carregamento (spinner) que cobre a tela durante a finalização de compras -->
+    <div id="tela-carregamento" class="tela-carregamento-overlay">
+        <div class="spinner-loading"></div>
+        <p class="texto-carregamento">Processando a transação...</p>
     </div>
 
+    <!-- Vincula o arquivo externo de comportamentos em Javascript -->
     <script src="script.js"></script>
 </body>
 </html>

@@ -17,21 +17,21 @@ let produtosPadrao = [
     { id: 15, titulo: "Herbert West: Reanimator", autor: "H.P. Lovecraft", preco: 99.90, estoque: 67, capa: "capas dos livros/capa-reanimator.webp" }
 ];
 
-// Obtém o estoque salvo no navegador ou usa o padrão[cite: 15]
+// Variável na memória RAM que guarda o estoque durante o uso (alterações não são permanentes)
+let estoqueAtual = [...produtosPadrao];
+
 function obterEstoque() {
-    let salvo = localStorage.getItem('estoqueLoja');
-    return salvo ? JSON.parse(salvo) : produtosPadrao;
+    return estoqueAtual;
 }
 
-// Salva o estoque atualizado no localStorage[cite: 15]
 function salvarEstoque(estoque) {
-    localStorage.setItem('estoqueLoja', JSON.stringify(estoque));
+    estoqueAtual = estoque;
 }
 
-// Carrega os itens do carrinho salvos no navegador[cite: 15]
+// Carrega os itens do carrinho salvos no navegador
 let carrinho = JSON.parse(localStorage.getItem('carrinhoLoja')) || [];
 
-// Exibe notificações flutuantes (toasts) na tela[cite: 15]
+// Exibe notificações flutuantes (toasts) na tela
 function mostrarToast(mensagem) {
     const container = document.getElementById('container-toast');
     const div = document.createElement('div');
@@ -45,7 +45,7 @@ function mostrarToast(mensagem) {
     }, 2000);
 }
 
-// Alterna entre as abas visíveis do site (loja, carrinho, login, admin)[cite: 15]
+// Alterna entre as abas visíveis do site (loja, carrinho, login, admin)
 function mudarAba(nomeAba) {
     document.querySelectorAll('.aba-conteudo').forEach(aba => {
         aba.style.display = 'none';
@@ -71,7 +71,7 @@ function mudarAba(nomeAba) {
     if (nomeAba === 'admin') renderizarPainelAdmin();
 }
 
-// Atualiza o contador de itens no topo do site[cite: 15]
+// Atualiza o contador de itens no topo do site
 function atualizarContador() {
     const contadores = document.querySelectorAll('.contador-carrinho');
     let totalUnidades = 0;
@@ -82,7 +82,7 @@ function atualizarContador() {
     });
 }
 
-// Verifica se há um usuário logado para alterar o botão do topo[cite: 15]
+// Verifica se há um usuário logado para alterar o botão do topo
 function verificarSessaoTopo() {
     const linkLogin = document.getElementById('link-login-topo');
     const usuarioLogado = localStorage.getItem('usuarioLogado');
@@ -108,7 +108,7 @@ function verificarSessaoTopo() {
     }
 }
 
-// Gerencia o clique no botão de login do topo[cite: 15]
+// Gerencia o clique no botão de login do topo
 function gerenciarCliqueLogin() {
     if (localStorage.getItem('usuarioLogado')) {
         if (confirm("Deseja encerrar a sessão?")) {
@@ -121,7 +121,7 @@ function gerenciarCliqueLogin() {
     }
 }
 
-// Verifica se o usuário atual tem permissão de administrador[cite: 15]
+// Verifica se o usuário atual tem permissão de administrador
 function verificarAcessoAdmin() {
     if (localStorage.getItem('adminAutenticado') === 'true') {
         mudarAba('admin');
@@ -131,13 +131,13 @@ function verificarAcessoAdmin() {
     }
 }
 
-// Filtra os livros da vitrine com base na pesquisa[cite: 15]
+// Filtra os livros da vitrine com base na pesquisa
 function pesquisarLivros() {
     const textoDigitado = document.getElementById('input-pesquisa').value.toLowerCase();
     renderizarVitrine(textoDigitado);
 }
 
-// Renderiza os cards de produtos na vitrine da loja[cite: 15]
+// Renderiza os cards de produtos na vitrine da loja
 function renderizarVitrine(filtroTexto = '') {
     const vitrine = document.getElementById('vitrine-produtos');
     if (!vitrine) return;
@@ -158,7 +158,7 @@ function renderizarVitrine(filtroTexto = '') {
         let precoReal = produto.promocao ? produto.preco * 0.8 : produto.preco;
         let valorParcelado = (precoReal / 3).toFixed(2).replace('.', ',');
         
-        let esgotou = produto.estoque === 0;
+        let esgotou = produto.estoque <= 0;
         let textoBotao = esgotou ? "Esgotado" : "Comprar";
         let statusDisabled = esgotou ? "disabled class='btn-comprar btn-esgotado'" : `onclick="adicionarAoCarrinho(${produto.id})" class="btn-comprar"`;
         
@@ -198,7 +198,7 @@ function renderizarVitrine(filtroTexto = '') {
     });
 }
 
-// Adiciona um produto selecionado ao carrinho de compras[cite: 15]
+// Adiciona um produto selecionado ao carrinho de compras
 window.adicionarAoCarrinho = function(idProduto) {
     let estoque = obterEstoque();
     let produto = estoque.find(p => p.id === idProduto);
@@ -228,7 +228,7 @@ window.adicionarAoCarrinho = function(idProduto) {
     atualizarContador();
 };
 
-// Renderiza a lista de itens dentro do carrinho[cite: 15]
+// Renderiza a lista de itens dentro do carrinho
 function renderizarCarrinho() {
     const container = document.getElementById('lista-carrinho');
     const elementoTotal = document.getElementById('total-carrinho');
@@ -272,7 +272,7 @@ function renderizarCarrinho() {
     }
 }
 
-// Remove um item específico do carrinho[cite: 15]
+// Remove um item específico do carrinho
 window.removerItem = function(index) {
     carrinho.splice(index, 1);
     localStorage.setItem('carrinhoLoja', JSON.stringify(carrinho));
@@ -280,7 +280,7 @@ window.removerItem = function(index) {
     atualizarContador();
 };
 
-// Finaliza a compra e abate as quantidades do estoque real[cite: 15]
+// Finaliza a compra e abate as quantidades do estoque real
 window.finalizarCompra = function() {
     document.getElementById('tela-carregamento').style.display = 'flex';
     
@@ -305,7 +305,7 @@ window.finalizarCompra = function() {
     }, 2500);
 };
 
-// Inicializa o sistema de login com credenciais padrão[cite: 15]
+// Inicializa o sistema de login com credenciais padrão
 function inicializarLogin() {
     const form = document.getElementById('form-login');
     if (!form) return;
@@ -334,7 +334,7 @@ function inicializarLogin() {
     });
 }
 
-// Renderiza a lista de produtos no painel administrativo[cite: 15]
+// Renderiza a lista de produtos no painel administrativo
 function renderizarPainelAdmin() {
     const containerAdmin = document.getElementById('lista-admin-produtos');
     if (!containerAdmin) return;
@@ -345,6 +345,8 @@ function renderizarPainelAdmin() {
     estoque.forEach((produto) => {
         const bloco = document.createElement('div');
         bloco.className = 'bloco-item-admin';
+        bloco.setAttribute('data-id', produto.id); // Ajuda a identificar o livro ao editar
+        
         bloco.innerHTML = `
             <div class="autor-admin">Autor: <strong>${produto.autor}</strong></div>
             <div class="linha-inputs-admin">
@@ -361,108 +363,109 @@ function renderizarPainelAdmin() {
                     <input type="number" class="adm-estoque input-admin-custom" value="${produto.estoque}">
                 </div>
             </div>
-            <!-- Botão de excluir visual (usa .remove() via DOM para sumir da tela sem afetar o estoque real) -->
-            <button onclick="removerLivroEstoqueVisual(this)" class="btn-remover-carrinho">Remover Livro</button>
+            <!-- Botão de excluir que remove o livro de verdade -->
+            <button onclick="removerLivroEstoque(${produto.id})" class="btn-remover-carrinho">Remover Livro</button>
         `;
         containerAdmin.appendChild(bloco);
     });
 }
 
-// MODIFICAÇÃO SOLICITADA: Exclusão estritamente visual utilizando o DOM (.remove)
-window.removerLivroEstoqueVisual = function(botaoElemento) {
-    if (confirm("Tem certeza de que deseja remover este item da visualização?")) {
-        const blocoItem = botaoElemento.closest('.bloco-item-admin');
-        if (blocoItem) {
-            blocoItem.remove(); // Remove apenas do DOM visualmente
-            mostrarToast("Livro removido da visualização com sucesso.");
-        }
+// Remove o livro definitivamente da lista (apenas na memória da sessão atual)
+window.removerLivroEstoque = function(idLivro) {
+    if (confirm("Tem certeza de que deseja excluir este livro da loja?")) {
+        let estoque = obterEstoque();
+        
+        // Filtra o estoque tirando o livro que tem este ID
+        estoque = estoque.filter(produto => produto.id !== idLivro);
+        
+        salvarEstoque(estoque);
+        
+        mostrarToast("Livro excluído com sucesso.");
+        renderizarPainelAdmin(); // Atualiza a lista do admin
+        renderizarVitrine();     // Atualiza a loja imediatamente
     }
 };
 
-// MODIFICAÇÃO SOLICITADA: Adição estritamente visual utilizando o DOM (document.createElement e appendChild)
+// Adição de livro de forma estruturada no array, refletindo na loja e admin
 document.getElementById('form-novo-livro')?.addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const containerAdmin = document.getElementById('lista-admin-produtos');
     const inputArquivo = document.getElementById('add-capa');
-    
     const tituloVal = document.getElementById('add-nome').value.trim();
     const autorVal = document.getElementById('add-autor').value.trim();
     const precoVal = parseFloat(document.getElementById('add-preco').value) || 0;
     const estoqueVal = parseInt(document.getElementById('add-estoque').value) || 0;
 
-    // Função interna auxiliar para criar o bloco visual do novo item no painel
-    function criarBlocoVisual(capaSrc) {
-        const bloco = document.createElement('div');
-        bloco.className = 'bloco-item-admin';
-        bloco.innerHTML = `
-            <div class="autor-admin">Autor: <strong>${autorVal}</strong></div>
-            <div class="linha-inputs-admin">
-                <div class="grupo-input-admin-flex-2">
-                    <label class="label-admin-input">Nome do Produto:</label>
-                    <input type="text" class="adm-nome input-admin-custom" value="${tituloVal}">
-                </div>
-                <div class="grupo-input-admin-flex-1">
-                    <label class="label-admin-input">Preço (R$):</label>
-                    <input type="number" step="0.01" class="adm-preco input-admin-custom" value="${precoVal.toFixed(2)}">
-                </div>
-                <div class="grupo-input-admin-flex-1">
-                    <label class="label-admin-input">Estoque:</label>
-                    <input type="number" class="adm-estoque input-admin-custom" value="${estoqueVal}">
-                </div>
-            </div>
-            <button onclick="removerLivroEstoqueVisual(this)" class="btn-remover-carrinho">Remover Livro</button>
-        `;
+    function adicionarLivroAoEstoque(capaSrc) {
+        let estoque = obterEstoque();
         
-        // Adiciona o elemento criado dinamicamente usando appendChild no DOM
-        if (containerAdmin) {
-            containerAdmin.appendChild(bloco);
-        }
+        // Gera um novo ID baseado no maior ID existente
+        const novoId = estoque.length > 0 ? Math.max(...estoque.map(p => p.id)) + 1 : 1;
+
+        const novoLivro = {
+            id: novoId,
+            titulo: tituloVal,
+            autor: autorVal,
+            preco: precoVal,
+            estoque: estoqueVal,
+            capa: capaSrc || "https://via.placeholder.com/185x270/121620/a3e635?text=Sem+Capa",
+            promocao: false // Padrão
+        };
+
+        // Adiciona na memória RAM
+        estoque.push(novoLivro);
+        salvarEstoque(estoque);
+        
+        // Atualiza a interface
+        renderizarPainelAdmin();
+        renderizarVitrine();
         
         document.getElementById('form-novo-livro').reset();
-        mostrarToast("Novo registro adicionado à visualização com sucesso (Apenas Visual).");
+        mostrarToast("Novo livro adicionado à loja!");
     }
 
     if (inputArquivo.files && inputArquivo.files[0]) {
         let leitor = new FileReader();
         leitor.onload = function(eventoArquivo) {
-            criarBlocoVisual(eventoArquivo.target.result);
+            adicionarLivroAoEstoque(eventoArquivo.target.result);
         };
         leitor.readAsDataURL(inputArquivo.files[0]);
     } else {
-        criarBlocoVisual('');
+        adicionarLivroAoEstoque('');
     }
 });
 
-// Salva as alterações feitas nos inputs do painel administrativo (mantido funcional para os demais elementos)[cite: 15]
+// Salva as alterações feitas nos inputs do painel administrativo
 window.salvarAlteracoesAdmin = function() {
-    const blocos = document.querySelectorAll('#lista-admin-produtos > div');
+    const blocos = document.querySelectorAll('#lista-admin-produtos > div.bloco-item-admin');
     let estoque = obterEstoque();
 
-    blocos.forEach((bloco, index) => {
+    blocos.forEach((bloco) => {
         const inputNome = bloco.querySelector('.adm-nome');
         const inputPreco = bloco.querySelector('.adm-preco');
         const inputEstoque = bloco.querySelector('.adm-estoque');
+        const idLivro = parseInt(bloco.getAttribute('data-id'));
 
-        if (inputNome && inputPreco && inputEstoque) {
-            const novoNome = inputNome.value;
-            const novoPreco = parseFloat(inputPreco.value) || 0;
-            const novoEstoque = parseInt(inputEstoque.value) || 0;
-
-            if (estoque[index]) {
-                estoque[index].titulo = novoNome;
-                estoque[index].preco = novoPreco;
-                estoque[index].estoque = novoEstoque;
+        if (inputNome && inputPreco && inputEstoque && !isNaN(idLivro)) {
+            // Acha o livro no array real e atualiza os dados
+            const produto = estoque.find(p => p.id === idLivro);
+            
+            if (produto) {
+                produto.titulo = inputNome.value;
+                produto.preco = parseFloat(inputPreco.value) || 0;
+                produto.estoque = parseInt(inputEstoque.value) || 0;
             }
         }
     });
 
     salvarEstoque(estoque);
     mostrarToast('Alterações no catálogo salvas com sucesso.');
+    
+    // Atualiza a loja imediatamente para as edições aparecerem lá
     renderizarVitrine();
 };
 
-// Encerra a sessão de administrador[cite: 15]
+// Encerra a sessão de administrador
 window.sairAdmin = function() {
     localStorage.removeItem('adminAutenticado');
     localStorage.removeItem('usuarioLogado');
@@ -470,7 +473,7 @@ window.sairAdmin = function() {
     mudarAba('loja');
 };
 
-// Executa funções iniciais assim que a página é carregada[cite: 15]
+// Executa funções iniciais assim que a página é carregada
 document.addEventListener('DOMContentLoaded', () => {
     atualizarContador();
     verificarSessaoTopo();
